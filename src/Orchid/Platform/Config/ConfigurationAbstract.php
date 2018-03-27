@@ -9,17 +9,21 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
 {
     private const KEY_APP_ROOT = 'appRoot';
 
-    private $baseConfig;
+    private $baseConfig = [];
 
     public function __construct(string $baseConfigFile)
     {
         if (is_readable($baseConfigFile)) {
-            $this->baseConfig = json_decode(file_get_contents($baseConfigFile), true);
+            $this->checkAndSetProperties(json_decode(file_get_contents($baseConfigFile), true));
         } elseif (is_readable(__DIR__.DIRECTORY_SEPARATOR.'config.json')) {
-            $this->baseConfig = json_decode(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'config.json'), true);
+            $this->checkAndSetProperties(
+                json_decode(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'config.json'), true)
+            );
         }
 
-        throw new ConfigurationException('Unable to locate a base configuration file to load.');
+        if (empty($this->baseConfig)) {
+            throw new ConfigurationException('Unable to locate a base configuration file to load.');
+        }
     }
 
     /**
@@ -28,7 +32,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
      */
     public function getAppRoot(): string
     {
-        return $this->baseConfig;
+        return realpath($this->baseConfig);
     }
 
     private function checkAndSetProperties(array $data)
