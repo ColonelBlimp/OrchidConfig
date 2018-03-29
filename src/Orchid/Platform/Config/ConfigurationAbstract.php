@@ -8,22 +8,18 @@ use Orchid\Core\Exception\ConfigurationException;
 
 abstract class ConfigurationAbstract implements ConfigurationInterface
 {
-    private const KEY_APP_ROOT = 'appRoot';
-
     private $baseConfig = [];
 
     public function __construct(string $baseConfigFile)
     {
         if (is_readable($baseConfigFile)) {
-            $this->checkAndSetProperties(json_decode(file_get_contents($baseConfigFile), true));
-        } elseif (is_readable(__DIR__.Constants::DS.'config.json')) {
-            $this->checkAndSetProperties(
-                json_decode(file_get_contents(__DIR__.Constants::DS.'config.json'), true)
-            );
+            $this->baseConfig = json_decode(file_get_contents($baseConfigFile), true);
+        } elseif (is_readable(__DIR__.Constants::DS.'Configs.php')) {
+            $this->baseConfig = include 'Configs.php';
         }
 
-        if (empty($this->baseConfig)) {
-            throw new ConfigurationException('Unable to locate a base configuration file to load.');
+        if (empty($this->baseConfig) || !$this->isBaseConfigValid()) {
+            throw new ConfigurationException('A base configuration file was not loaded.');
         }
     }
 
@@ -33,13 +29,24 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
      */
     public function getAppRoot(): string
     {
-        return realpath($this->baseConfig);
+        return realpath($this->baseConfig[ConfigurationInterface::KEY_APP_ROOT]);
     }
 
-    private function checkAndSetProperties(array $data)
+    public function getConfigRoot(): string
     {
-        if (isset($data[ConfigurationAbstract::KEY_APP_ROOT])) {
-            $this->baseConfig = $data[ConfigurationAbstract::KEY_APP_ROOT];
-        }
+        return $this->getAppRoot().$this->baseConfig[ConfigurationInterface::KEY_CONFIG_ROOT];
+    }
+
+    public function getContentRoot(): string
+    {
+        return $this->getAppRoot().$this->baseConfig[ConfigurationInterface::KEY_CONTENT_ROOT];
+    }
+
+    private function isBaseConfigValid(): bool
+    {
+        return
+            isset($this->baseConfig[ConfigurationInterface::KEY_APP_ROOT]) &&
+            isset($this->baseConfig[ConfigurationInterface::KEY_CONFIG_ROOT]) &&
+            isset($this->baseConfig[ConfigurationInterface::KEY_CONTENT_ROOT]);
     }
 }

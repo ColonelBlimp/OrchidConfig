@@ -1,3 +1,5 @@
 {
-    "appRoot": "."
+    "appRoot": ".",
+    "configRoot": "config",
+    "contentRoot": "content"
 }
