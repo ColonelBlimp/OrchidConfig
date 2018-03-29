@@ -14,8 +14,8 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
     {
         if (is_readable($baseConfigFile)) {
             $this->baseConfig = json_decode(file_get_contents($baseConfigFile), true);
-        } elseif (is_readable(__DIR__.Constants::DS.'Configs.php')) {
-            $this->baseConfig = include 'Configs.php';
+        } elseif (is_readable(__DIR__.Constants::DS.Constants::FILE_BASE_CONFIG_PHP)) {
+            $this->baseConfig = include Constants::FILE_BASE_CONFIG_PHP;
         }
 
         if (empty($this->baseConfig) || !$this->isBaseConfigPropertiesSet()) {

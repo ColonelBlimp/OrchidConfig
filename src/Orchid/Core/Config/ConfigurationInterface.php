@@ -4,7 +4,7 @@ namespace Orchid\Core\Config;
 
 /**
  * The platform's core configuration interface.
- * @author mveary
+ * @author Marc L. Veary
  * @namespace Orchid\Core\Config
  */
 interface ConfigurationInterface
