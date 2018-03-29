@@ -18,7 +18,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
             $this->baseConfig = include 'Configs.php';
         }
 
-        if (empty($this->baseConfig) || !$this->isBaseConfigValid()) {
+        if (empty($this->baseConfig) || !$this->isBaseConfigPropertiesSet()) {
             throw new ConfigurationException('A base configuration file was not loaded.');
         }
     }
@@ -32,21 +32,53 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
         return realpath($this->baseConfig[ConfigurationInterface::KEY_APP_ROOT]);
     }
 
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\ConfigurationInterface::getConfigRoot()
+     */
     public function getConfigRoot(): string
     {
-        return $this->getAppRoot().$this->baseConfig[ConfigurationInterface::KEY_CONFIG_ROOT];
+        return $this->getAppRoot().Constants::DS.$this->baseConfig[ConfigurationInterface::KEY_CONFIG_ROOT];
     }
 
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\ConfigurationInterface::getContentRoot()
+     */
     public function getContentRoot(): string
     {
-        return $this->getAppRoot().$this->baseConfig[ConfigurationInterface::KEY_CONTENT_ROOT];
+        return $this->getAppRoot().Constants::DS.$this->baseConfig[ConfigurationInterface::KEY_CONTENT_ROOT];
     }
 
-    private function isBaseConfigValid(): bool
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\ConfigurationInterface::getCacheRoot()
+     */
+    public function getCacheRoot(): string
+    {
+        return $this->getAppRoot().Constants::DS.$this->baseConfig[ConfigurationInterface::KEY_CACHE_ROOT];
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\ConfigurationInterface::getThemesRoot()
+     */
+    public function getThemesRoot(): string
+    {
+        return $this->getAppRoot().Constants::DS.$this->baseConfig[ConfigurationInterface::KEY_THEMES_ROOT];
+    }
+
+    /**
+     * Checks that all the mandatory properties are set.
+     * @return bool Return <code>true</code> if all the properties are set, otherwise <code>false</code>.
+     */
+    private function isBaseConfigPropertiesSet(): bool
     {
         return
             isset($this->baseConfig[ConfigurationInterface::KEY_APP_ROOT]) &&
             isset($this->baseConfig[ConfigurationInterface::KEY_CONFIG_ROOT]) &&
+            isset($this->baseConfig[ConfigurationInterface::KEY_CACHE_ROOT]) &&
+            isset($this->baseConfig[ConfigurationInterface::KEY_THEMES_ROOT]) &&
             isset($this->baseConfig[ConfigurationInterface::KEY_CONTENT_ROOT]);
     }
 }
