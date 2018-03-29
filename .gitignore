@@ -10,3 +10,4 @@
 /composer.lock
 /build/
 >>>>>>> branch 'master' of https://github.com/ColonelBlimp/OrchidConfig
+/cache.properties
