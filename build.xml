@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="OrchidCore" basedir="." default="build">
+<project name="OrchidConfig" basedir="." default="build">
 
 	<property file="build.properties" />
 	<property name="build.dir" value="${basedir}/build" />
