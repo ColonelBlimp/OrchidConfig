@@ -1,0 +1,14 @@
+{
+	"name" : "orchid/config",
+	"minimum-stability" : "dev",
+	"require-dev" : {
+		"phpunit/phpunit" : "~6.5.7@stable"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Orchid\\" : "src/Orchid"
+		}
+	},
+	"type" : "library",
+	"license" : "MIT"
+}
