@@ -2,6 +2,7 @@
 
 namespace Orchid\Platform\Config;
 
+use Orchid\Constants;
 use Orchid\Core\Config\ConfigurationInterface;
 use Orchid\Core\Exception\ConfigurationException;
 
@@ -15,9 +16,9 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
     {
         if (is_readable($baseConfigFile)) {
             $this->checkAndSetProperties(json_decode(file_get_contents($baseConfigFile), true));
-        } elseif (is_readable(__DIR__.DIRECTORY_SEPARATOR.'config.json')) {
+        } elseif (is_readable(__DIR__.Constants::DS.'config.json')) {
             $this->checkAndSetProperties(
-                json_decode(file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'config.json'), true)
+                json_decode(file_get_contents(__DIR__.Constants::DS.'config.json'), true)
             );
         }
 
