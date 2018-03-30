@@ -1,60 +1,81 @@
 <?php declare(strict_types = 1);
 
-use Orchid\Constants;
+use Orchid\Core\Config\ConfigurationInterface;
+use Orchid\Core\Config\PlatformConfigurationInterface;
+use Orchid\Core\Exception\ConfigurationException;
 use Orchid\Platform\Config\Configuration;
 use PHPUnit\Framework\TestCase;
+
+define('DS', DIRECTORY_SEPARATOR);
 
 class ConfigTest extends TestCase
 {
     /**
      * @expectedException Orchid\Core\Exception\ConfigurationException
+     * @expectedExceptionMessage A base configuration file was not able to be loaded, or was empty:
      */
-    public function testConfigurationExceptionNoFiles()
+    public function testBaseConfigurationExceptionNoFiles()
     {
-        $config = new Configuration();
+        $config = new Configuration('', '');
     }
 
-    public function testConfigurationDefault()
+    /**
+     * @expectedException Orchid\Core\Exception\ConfigurationException
+     * @expectedExceptionMessage A platform configuration file was not able to be loaded, or was empty:
+     */
+    public function testPlatformConfigurationExceptionNoFiles()
     {
-        $src = __DIR__.DIRECTORY_SEPARATOR.'_files'.DIRECTORY_SEPARATOR.Constants::FILE_BASE_CONFIG_PHP;
-        $dest = getcwd().DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'Orchid'.DIRECTORY_SEPARATOR.
-        'Platform'.DIRECTORY_SEPARATOR.'Config'.DIRECTORY_SEPARATOR.Constants::FILE_BASE_CONFIG_PHP;
-        copy($src, $dest);
-
-        $config = new Configuration();
-        $this->assertSame(realpath('.'), $config->getAppRoot());
-        $this->assertSame(realpath('.').DIRECTORY_SEPARATOR.'config', $config->getConfigRoot());
-        $this->assertSame(realpath('.').DIRECTORY_SEPARATOR.'content', $config->getContentRoot());
-        $this->assertSame(realpath('.').DIRECTORY_SEPARATOR.'cache', $config->getCacheRoot());
-        $this->assertSame(realpath('.').DIRECTORY_SEPARATOR.'themes', $config->getThemesRoot());
-
-        unlink($dest);
+        $base = $this->loadBaseConfiguration();
+        try {
+            $config = new Configuration($base, '');
+        } catch (ConfigurationException $cex) {
+            $this->removeBaseConfiguration($base);
+            throw $cex;
+        }
     }
 
     public function testBaseConfigLoad()
     {
-        $config = new Configuration(__DIR__.DIRECTORY_SEPARATOR.'_files'.DIRECTORY_SEPARATOR.'baseConfig.json');
+        $base = $this->loadBaseConfiguration();
+        $platform = $this->loadPlatformConfiguration();
+
+        $config = new Configuration($base, $platform);
         $this->assertSame(realpath('.'), $config->getAppRoot());
-        $this->assertSame(realpath('.').DIRECTORY_SEPARATOR.'config', $config->getConfigRoot());
-        $this->assertSame(realpath('.').DIRECTORY_SEPARATOR.'content', $config->getContentRoot());
-        $this->assertSame(realpath('.').DIRECTORY_SEPARATOR.'cache', $config->getCacheRoot());
-        $this->assertSame(realpath('.').DIRECTORY_SEPARATOR.'themes', $config->getThemesRoot());
+        $this->assertSame(realpath('.').DS.'config', $config->getConfigRoot());
+        $this->assertSame(realpath('.').DS.'content', $config->getContentRoot());
+        $this->assertSame(realpath('.').DS.'cache', $config->getCacheRoot());
+        $this->assertSame(realpath('.').DS.'themes', $config->getThemesRoot());
+
+        $this->removePlatformConfiguration($platform);
+        $this->removeBaseConfiguration($base);
     }
 
-    public function testPlatformConfigLoad()
+    private function loadBaseConfiguration(string $filename = ConfigurationInterface::FILE_BASE_CONFIG_PHP): string
     {
-        $pathname = getcwd().DIRECTORY_SEPARATOR.'config';
-        mkdir($pathname, 0777, true);
+        $src = __DIR__.DS.'_files'.DS.$filename;
+        $dest = getcwd().DS.'src'.DS.'Orchid'.DS.'Platform'.DS.'Config'.DS.$filename;
+        copy($src, $dest);
+        return $dest;
+    }
 
-        copy(
-            __DIR__.DIRECTORY_SEPARATOR.'_files'.DIRECTORY_SEPARATOR.Constants::FILE_PLATFORM_CONFIG_PHP,
-            $pathname.DIRECTORY_SEPARATOR.Constants::FILE_PLATFORM_CONFIG_PHP
-            );
+    private function loadPlatformConfiguration(string $filename = PlatformConfigurationInterface::FILE_PLATFORM_CONFIG_PHP): string
+    {
+        $src = __DIR__.DS.'_files'.DS.$filename;
+        $dest = getcwd().DS.'config';
+        mkdir($dest, 0777, true);
+        $dest .= DS.$filename;
+        copy($src, $dest);
+        return $dest;
+    }
 
-        $baseConfig = __DIR__.DIRECTORY_SEPARATOR.'_files'.DIRECTORY_SEPARATOR.'baseConfig.json';
-        $config = new Configuration($baseConfig);
+    private function removeBaseConfiguration(string $filename)
+    {
+        unlink($filename);
+    }
 
-        unlink($pathname.DIRECTORY_SEPARATOR.Constants::FILE_PLATFORM_CONFIG_PHP);
-        rmdir($pathname);
+    private function removePlatformConfiguration(string $filename)
+    {
+        unlink($filename);
+        rmdir(getcwd().DS.'config');
     }
 }

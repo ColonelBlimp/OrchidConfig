@@ -1,7 +1,0 @@
-{
-    "appRoot": ".",
-    "configRoot": "config",
-    "contentRoot": "content",
-    "cacheRoot": "cache",
-    "themesRoot": "themes"
-}

@@ -4,6 +4,7 @@ namespace Orchid\Platform\Config;
 
 use Orchid\Constants;
 use Orchid\Core\Config\PlatformConfigurationInterface;
+use Orchid\Core\Exception\ConfigurationException;
 
 /**
  * @author Marc L. Veary
@@ -11,20 +12,48 @@ use Orchid\Core\Config\PlatformConfigurationInterface;
  */
 final class Configuration extends ConfigurationAbstract implements PlatformConfigurationInterface
 {
-    private $config = [];
-
-    public function __construct(string $baseConfigFile = '', string $appConfigFile = '')
+    public function __construct(string $baseConfigFile, string $platformConfigFile)
     {
         parent::__construct($baseConfigFile);
 
         $config = [];
-        if (is_readable($appConfigFile)) {
-            $this->config = json_decode(file_get_contents($appConfigFile), true);
-        } elseif (is_readable($this->getConfigRoot().Constants::DS.Constants::FILE_PLATFORM_CONFIG_PHP)) {
-            $this->config = include $this->getConfigRoot().Constants::DS.Constants::FILE_PLATFORM_CONFIG_PHP;
+        if (is_readable($platformConfigFile)) {
+            $config = include $platformConfigFile;
         }
 
+        if (empty($config)) {
+            throw new ConfigurationException(
+                'A platform configuration file was not able to be loaded, or was empty: '.$platformConfigFile
+            );
+        }
+
+        $this->config = array_merge($this->config, $config);
     }
 
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getSiteUrl()
+     */
+    public function getSiteUrl(): string
+    {
+        $url = $this->getStringValue(PlatformConfigurationInterface::KEY_SITE_URL);
 
+        if (empty($url)) {
+            $scheme = filter_input(INPUT_SERVER, 'REQUEST_SCHEME');
+            $server = filter_input(INPUT_SERVER, 'SERVER_NAME');
+            return $scheme.'://'.$server;
+        }
+
+        return $url;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getTheme()
+     */
+    public function getTheme(): string
+    {
+        return $this->getThemesRoot().Constants::DS
+        .$this->getStringValue(PlatformConfigurationInterface::KEY_SITE_THEME, 'default');
+    }
 }

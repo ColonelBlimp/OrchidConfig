@@ -6,20 +6,25 @@ use Orchid\Constants;
 use Orchid\Core\Config\ConfigurationInterface;
 use Orchid\Core\Exception\ConfigurationException;
 
+/**
+ * This abstract class handles all the base platform configuration.
+ * @author Marc L. Veary
+ * @namespace Orchid\Platform\Config
+ */
 abstract class ConfigurationAbstract implements ConfigurationInterface
 {
-    private $baseConfig = [];
+    protected $config = [];
 
     public function __construct(string $baseConfigFile)
     {
         if (is_readable($baseConfigFile)) {
-            $this->baseConfig = json_decode(file_get_contents($baseConfigFile), true);
-        } elseif (is_readable(__DIR__.Constants::DS.Constants::FILE_BASE_CONFIG_PHP)) {
-            $this->baseConfig = include Constants::FILE_BASE_CONFIG_PHP;
+            $this->config = include $baseConfigFile;
         }
 
-        if (empty($this->baseConfig) || !$this->isBaseConfigPropertiesSet()) {
-            throw new ConfigurationException('A base configuration file was not loaded.');
+        if (empty($this->config) || !$this->isBaseConfigPropertiesSet()) {
+            throw new ConfigurationException(
+                'A base configuration file was not able to be loaded, or was empty: '.$baseConfigFile
+            );
         }
     }
 
@@ -29,7 +34,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
      */
     public function getAppRoot(): string
     {
-        return realpath($this->baseConfig[ConfigurationInterface::KEY_APP_ROOT]);
+        return realpath($this->config[ConfigurationInterface::KEY_APP_ROOT]);
     }
 
     /**
@@ -38,7 +43,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
      */
     public function getConfigRoot(): string
     {
-        return $this->getAppRoot().Constants::DS.$this->baseConfig[ConfigurationInterface::KEY_CONFIG_ROOT];
+        return $this->getAppRoot().Constants::DS.$this->config[ConfigurationInterface::KEY_CONFIG_ROOT];
     }
 
     /**
@@ -47,7 +52,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
      */
     public function getContentRoot(): string
     {
-        return $this->getAppRoot().Constants::DS.$this->baseConfig[ConfigurationInterface::KEY_CONTENT_ROOT];
+        return $this->getAppRoot().Constants::DS.$this->config[ConfigurationInterface::KEY_CONTENT_ROOT];
     }
 
     /**
@@ -56,7 +61,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
      */
     public function getCacheRoot(): string
     {
-        return $this->getAppRoot().Constants::DS.$this->baseConfig[ConfigurationInterface::KEY_CACHE_ROOT];
+        return $this->getAppRoot().Constants::DS.$this->config[ConfigurationInterface::KEY_CACHE_ROOT];
     }
 
     /**
@@ -65,7 +70,79 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
      */
     public function getThemesRoot(): string
     {
-        return $this->getAppRoot().Constants::DS.$this->baseConfig[ConfigurationInterface::KEY_THEMES_ROOT];
+        return $this->getAppRoot().Constants::DS.$this->config[ConfigurationInterface::KEY_THEMES_ROOT];
+    }
+
+    /**
+     * Return the value associated with the given <code>key</code>.
+     *
+     * @param string $key
+     *            The whose associated value is to be returned.
+     * @return mixed Returns the value, otherwise <code>false</code> if the key does not exist.
+     */
+    final protected function getConfigValue(string $key)
+    {
+        if (isset($this->config[$key])) {
+            if (isset($this->config[$key][ConfigurationInterface::KEY_VALUE])) {
+                return $this->config[$key][ConfigurationInterface::KEY_VALUE];
+            }
+
+            return $this->config[$key];
+        }
+
+        return false;
+    }
+
+    final protected function getArrayValue(string $key): array
+    {
+        $value = $this->getConfigValue($key);
+        if (!$value || !is_array($value)) {
+            return [];
+        }
+
+        return $value;
+    }
+
+    final protected function getIntegerValue(string $key, int $default = -1): int
+    {
+        $value = $this->getConfigValue($key);
+        if (!$value) {
+            return $default;
+        }
+
+        return intval($value);
+    }
+
+    /**
+     * Retrieves a string configuration parameter.
+     * @param string $key The for the value.
+     * @param string $default The default value if not found (empty string)
+     * @return string The value.
+     */
+    final protected function getStringValue(string $key, string $default = ''): string
+    {
+        $value = $this->getConfigValue($key);
+        if (!$value) {
+            return $default;
+        }
+
+        return strval($value);
+    }
+
+    /**
+     * Retrieves a boolean configuration parameter.
+     * @param string $key The for the value.
+     * @param bool $default The default value if not found (false)
+     * @return bool The value
+     */
+    final protected function getBooleanValue(string $key, bool $default = false): bool
+    {
+        $value = $this->getConfigValue($key);
+        if (!$value) {
+            return $default;
+        }
+
+        return boolval($value);
     }
 
     /**
@@ -75,10 +152,10 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
     private function isBaseConfigPropertiesSet(): bool
     {
         return
-            isset($this->baseConfig[ConfigurationInterface::KEY_APP_ROOT]) &&
-            isset($this->baseConfig[ConfigurationInterface::KEY_CONFIG_ROOT]) &&
-            isset($this->baseConfig[ConfigurationInterface::KEY_CACHE_ROOT]) &&
-            isset($this->baseConfig[ConfigurationInterface::KEY_THEMES_ROOT]) &&
-            isset($this->baseConfig[ConfigurationInterface::KEY_CONTENT_ROOT]);
+            isset($this->config[ConfigurationInterface::KEY_APP_ROOT]) &&
+            isset($this->config[ConfigurationInterface::KEY_CONFIG_ROOT]) &&
+            isset($this->config[ConfigurationInterface::KEY_CACHE_ROOT]) &&
+            isset($this->config[ConfigurationInterface::KEY_THEMES_ROOT]) &&
+            isset($this->config[ConfigurationInterface::KEY_CONTENT_ROOT]);
     }
 }

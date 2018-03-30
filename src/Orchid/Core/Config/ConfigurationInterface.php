@@ -20,6 +20,22 @@ interface ConfigurationInterface
     public const KEY_THEMES_ROOT = 'themesRoot';
 
     /**
+     *
+     */
+    public const KEY_VALUE = 'value';
+
+    /**
+     *
+     */
+    public const KEY_COMMENT = 'comment';
+
+    /**
+     * The filename for the default base platform configuration file (BaseConfig.php). The default location for this
+     * file is in the same directory as the Configuration implementation classfile.
+     */
+    public const FILE_BASE_CONFIG_PHP = 'BaseConfig.php';
+
+    /**
      * Retrieves the platform's root directory.
      * @return string
      */
