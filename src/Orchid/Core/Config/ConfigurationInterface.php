@@ -9,23 +9,38 @@ namespace Orchid\Core\Config;
  */
 interface ConfigurationInterface
 {
+    /**
+     * The configuration key for the platform's root directory.
+     */
     public const KEY_APP_ROOT = 'appRoot';
 
+    /**
+     * The configuration key for the platform's config directory.
+     */
     public const KEY_CONFIG_ROOT = 'configRoot';
 
+    /**
+     * The configuration key for the platform's content directory.
+     */
     public const KEY_CONTENT_ROOT = 'contentRoot';
 
+    /**
+     * The configuration key for the platform's cache directory.
+     */
     public const KEY_CACHE_ROOT = 'cacheRoot';
 
+    /**
+     * The configuration key for the platform's themes directory.
+     */
     public const KEY_THEMES_ROOT = 'themesRoot';
 
     /**
-     *
+     * The configuration key for the
      */
     public const KEY_VALUE = 'value';
 
     /**
-     *
+     * The configuration key for the
      */
     public const KEY_COMMENT = 'comment';
 
