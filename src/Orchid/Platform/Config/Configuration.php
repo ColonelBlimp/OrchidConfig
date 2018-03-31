@@ -2,7 +2,7 @@
 
 namespace Orchid\Platform\Config;
 
-use Orchid\Constants;
+use Orchid\Core\Constants;
 use Orchid\Core\Config\PlatformConfigurationInterface;
 use Orchid\Core\Exception\ConfigurationException;
 
