@@ -10,6 +10,13 @@ build:
             tests:
                 override:
                     - php-scrutinizer-run --enable-security-analysis
+    tests:
+        override:
+            -
+                command: 'vendor/bin/phpunit --coverage-clover=build/logs/clover.xml'
+                coverage:
+                    file: 'build/logs/clover.xml'
+                    format: 'clover'
 checks:
     php: true
 
@@ -18,4 +25,3 @@ filter:
         - "tests/*"
         - "vendor/*"
         - "build/*"
-        - "themes/*"

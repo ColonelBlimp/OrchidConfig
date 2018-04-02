@@ -11,5 +11,9 @@ return [
     PlatformConfigurationInterface::KEY_SITE_THEME => [
         ConfigurationInterface::KEY_VALUE => 'default',
         ConfigurationInterface::KEY_COMMENT => ''
+    ],
+    PlatformConfigurationInterface::KEY_STATIC_FRONTPAGE => [
+        ConfigurationInterface::KEY_VALUE => 'false',
+        ConfigurationInterface::KEY_COMMENT => ''
     ]
 ];

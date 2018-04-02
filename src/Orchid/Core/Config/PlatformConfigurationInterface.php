@@ -15,14 +15,29 @@ interface PlatformConfigurationInterface
     public const FILE_PLATFORM_CONFIG_PHP = 'PlatformConfig.php';
 
     /**
-     * The site url [protocol][FQDN]
+     * The configuration key for the site url [protocol][FQDN]
      */
     public const KEY_SITE_URL = 'site.url';
 
     /**
-     * The theme the site is currently using.
+     * The configuration key for the theme the site is currently using.
      */
     public const KEY_SITE_THEME = 'site.theme';
+
+    /**
+     * The configuration key for the maximum number of items per page.
+     */
+    public const KEY_ITEMS_PER_PAGE = 'items.perpage';
+
+    /**
+     * The configuration key for enabling a static front page.
+     */
+    public const KEY_STATIC_FRONTPAGE = 'static.frontpage';
+
+    /**
+     * The configuration key for enabling/disabling the /blog URI
+     */
+    public const KEY_BLOG_ENABLED = 'blog.enabled';
 
     /**
      * Retrieves the site url (site.url). If this is not configure, the method will try to work out the url
@@ -38,4 +53,22 @@ interface PlatformConfigurationInterface
      * @return string
      */
     public function getTheme(): string;
+
+    /**
+     * Retrieves the maximum number of items to be displayed per page (i.e. before pagination is needed).
+     * @return int The default is 5.
+     */
+    public function getItemsPerPage(): int;
+
+    /**
+     * Does the site have a static front page?
+     * @return bool
+     */
+    public function hasStaticFrontPage(): bool;
+
+    /**
+     * Is the /blog URI enabled?
+     * @return bool
+     */
+    public function isBlogEnabled(): bool;
 }

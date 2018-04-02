@@ -2,7 +2,6 @@
 
 namespace Orchid\Platform\Config;
 
-use Orchid\Core\Constants;
 use Orchid\Core\Config\PlatformConfigurationInterface;
 use Orchid\Core\Exception\ConfigurationException;
 
@@ -41,7 +40,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
         if (empty($url)) {
             $scheme = filter_input(INPUT_SERVER, 'REQUEST_SCHEME');
             $server = filter_input(INPUT_SERVER, 'SERVER_NAME');
-            return $scheme.'://'.$server;
+            $url = $scheme.'://'.$server;
         }
 
         return $url;
@@ -53,7 +52,33 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
      */
     public function getTheme(): string
     {
-        return $this->getThemesRoot().Constants::DS
-        .$this->getStringValue(PlatformConfigurationInterface::KEY_SITE_THEME, 'default');
+        return $this->getStringValue(PlatformConfigurationInterface::KEY_SITE_THEME, 'default');
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getItemsPerPage()
+     */
+    public function getItemsPerPage(): int
+    {
+        return $this->getIntegerValue(PlatformConfigurationInterface::KEY_ITEMS_PER_PAGE, 5);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\PlatformConfigurationInterface::hasStaticFrontPage()
+     */
+    public function hasStaticFrontPage(): bool
+    {
+        return $this->getBooleanValue(PlatformConfigurationInterface::KEY_STATIC_FRONTPAGE);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\PlatformConfigurationInterface::isBlogEnabled()
+     */
+    public function isBlogEnabled(): bool
+    {
+        return $this->getBooleanValue(PlatformConfigurationInterface::KEY_BLOG_ENABLED, true);
     }
 }

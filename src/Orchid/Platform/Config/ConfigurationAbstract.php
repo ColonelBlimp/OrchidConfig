@@ -10,11 +10,17 @@ use Orchid\Core\Exception\ConfigurationException;
  * This abstract class handles all the base platform configuration.
  * @author Marc L. Veary
  * @namespace Orchid\Platform\Config
+ * @package Orchid
  */
 abstract class ConfigurationAbstract implements ConfigurationInterface
 {
     protected $config = [];
 
+    /**
+     * Constructor.
+     * @param string $baseConfigFile
+     * @throws ConfigurationException
+     */
     public function __construct(string $baseConfigFile)
     {
         if (is_readable($baseConfigFile)) {
@@ -82,17 +88,24 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
      */
     final protected function getConfigValue(string $key)
     {
+        $retval = false;
+
         if (isset($this->config[$key])) {
             if (isset($this->config[$key][ConfigurationInterface::KEY_VALUE])) {
                 return $this->config[$key][ConfigurationInterface::KEY_VALUE];
             }
 
-            return $this->config[$key];
+            $retval = $this->config[$key];
         }
 
-        return false;
+        return $retval;
     }
 
+    /**
+     * Returns an array value.
+     * @param string $key
+     * @return array
+     */
     final protected function getArrayValue(string $key): array
     {
         $value = $this->getConfigValue($key);
@@ -103,7 +116,13 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
         return $value;
     }
 
-    final protected function getIntegerValue(string $key, int $default = -1): int
+    /**
+     * Returns an integer (int) value.
+     * @param string $key
+     * @param int $default The default default is -9999
+     * @return int
+     */
+    final protected function getIntegerValue(string $key, int $default = -9999): int
     {
         $value = $this->getConfigValue($key);
         if (!$value) {
@@ -151,11 +170,12 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
      */
     private function isBaseConfigPropertiesSet(): bool
     {
-        return
-            isset($this->config[ConfigurationInterface::KEY_APP_ROOT]) &&
-            isset($this->config[ConfigurationInterface::KEY_CONFIG_ROOT]) &&
-            isset($this->config[ConfigurationInterface::KEY_CACHE_ROOT]) &&
-            isset($this->config[ConfigurationInterface::KEY_THEMES_ROOT]) &&
-            isset($this->config[ConfigurationInterface::KEY_CONTENT_ROOT]);
+        return isset(
+            $this->config[ConfigurationInterface::KEY_APP_ROOT],
+            $this->config[ConfigurationInterface::KEY_CONFIG_ROOT],
+            $this->config[ConfigurationInterface::KEY_CACHE_ROOT],
+            $this->config[ConfigurationInterface::KEY_THEMES_ROOT],
+            $this->config[ConfigurationInterface::KEY_CONTENT_ROOT]
+        );
     }
 }

@@ -50,6 +50,22 @@ class ConfigTest extends TestCase
         $this->removeBaseConfiguration($base);
     }
 
+    public function testPlatformConfigLoad()
+    {
+        $base = $this->loadBaseConfiguration();
+        $platform = $this->loadPlatformConfiguration();
+
+        $config = new Configuration($base, $platform);
+        $this->assertSame('default', $config->getTheme());
+        $this->assertSame('://', $config->getSiteUrl());
+        $this->assertTrue($config->getItemsPerPage() === 5);
+        $this->assertTrue($config->hasStaticFrontPage());
+        $this->assertTrue($config->isBlogEnabled());
+
+        $this->removePlatformConfiguration($platform);
+        $this->removeBaseConfiguration($base);
+    }
+
     private function loadBaseConfiguration(string $filename = ConfigurationInterface::FILE_BASE_CONFIG_PHP): string
     {
         $src = __DIR__.DS.'_files'.DS.$filename;
@@ -77,5 +93,12 @@ class ConfigTest extends TestCase
     {
         unlink($filename);
         rmdir(getcwd().DS.'config');
+    }
+
+    public static function tearDownAfterClass()
+    {
+        @unlink(getcwd().DS.'config'.DS.ConfigurationInterface::FILE_BASE_CONFIG_PHP);
+        @unlink(getcwd().DS.'src'.DS.'Orchid'.DS.'Platform'.DS.'Config'.DS.PlatformConfigurationInterface::FILE_PLATFORM_CONFIG_PHP);
+        @rmdir(getcwd().DS.'config');
     }
 }
