@@ -150,7 +150,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
 
     /**
      * Retrieves a boolean configuration parameter.
-     * @param string $key The for the value.
+     * @param string $key The key for the value.
      * @param bool $default The default value if not found (false)
      * @return bool The value
      */
