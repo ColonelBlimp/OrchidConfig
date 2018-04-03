@@ -81,4 +81,22 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
     {
         return $this->getBooleanValue(PlatformConfigurationInterface::KEY_BLOG_ENABLED, true);
     }
+
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getMetaTags()
+     */
+    public function getMetaTags(): array
+    {
+        return $this->getArrayValue(PlatformConfigurationInterface::KEY_META_TAGS);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getSocialLinks()
+     */
+    public function getSocialLinks(): array
+    {
+        return $this->getArrayValue(PlatformConfigurationInterface::KEY_SOCIAL_LINKS);
+    }
 }

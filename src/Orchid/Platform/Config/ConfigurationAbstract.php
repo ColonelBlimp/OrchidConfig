@@ -81,20 +81,16 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
 
     /**
      * Return the value associated with the given <code>key</code>.
-     *
-     * @param string $key
-     *            The whose associated value is to be returned.
+     * @param string $key The key whose associated value is to be returned.
      * @return mixed Returns the value, otherwise <code>false</code> if the key does not exist.
      */
     final protected function getConfigValue(string $key)
     {
         $retval = false;
 
-        if (isset($this->config[$key])) {
-            if (isset($this->config[$key][ConfigurationInterface::KEY_VALUE])) {
-                return $this->config[$key][ConfigurationInterface::KEY_VALUE];
-            }
-
+        if (isset($this->config[$key], $this->config[$key][ConfigurationInterface::KEY_VALUE])) {
+            $retval = $this->config[$key][ConfigurationInterface::KEY_VALUE];
+        } elseif (isset($this->config[$key])) {
             $retval = $this->config[$key];
         }
 

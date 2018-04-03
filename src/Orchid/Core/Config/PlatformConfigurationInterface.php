@@ -40,6 +40,16 @@ interface PlatformConfigurationInterface
     public const KEY_BLOG_ENABLED = 'blog.enabled';
 
     /**
+     * The configuration key for the HTML meta tags.
+     */
+    public const KEY_META_TAGS = 'meta.tags';
+
+    /**
+     * The configuration key for social links.
+     */
+    public const KEY_SOCIAL_LINKS = 'social.links';
+
+    /**
      * Retrieves the site url (site.url). If this is not configure, the method will try to work out the url
      * from the $_SERVER variable.
      * @return string
@@ -71,4 +81,15 @@ interface PlatformConfigurationInterface
      * @return bool
      */
     public function isBlogEnabled(): bool;
+
+    /**
+     * Retrieves a list (array) of configured HTML meta tags to be added to each page.
+     */
+    public function getMetaTags(): array;
+
+    /**
+     * Retrieves a list (array) of configured social links.
+     * @return array
+     */
+    public function getSocialLinks(): array;
 }

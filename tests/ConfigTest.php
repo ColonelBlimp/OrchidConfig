@@ -61,6 +61,8 @@ class ConfigTest extends TestCase
         $this->assertTrue($config->getItemsPerPage() === 5);
         $this->assertTrue($config->hasStaticFrontPage());
         $this->assertTrue($config->isBlogEnabled());
+        $this->assertNotEmpty($config->getMetaTags());
+        $this->assertEmpty($config->getSocialLinks());
 
         $this->removePlatformConfiguration($platform);
         $this->removeBaseConfiguration($base);
@@ -97,8 +99,8 @@ class ConfigTest extends TestCase
 
     public static function tearDownAfterClass()
     {
-        @unlink(getcwd().DS.'config'.DS.ConfigurationInterface::FILE_BASE_CONFIG_PHP);
-        @unlink(getcwd().DS.'src'.DS.'Orchid'.DS.'Platform'.DS.'Config'.DS.PlatformConfigurationInterface::FILE_PLATFORM_CONFIG_PHP);
+        @unlink(getcwd().DS.'config'.DS.PlatformConfigurationInterface::FILE_PLATFORM_CONFIG_PHP);
+        @unlink(getcwd().DS.'src'.DS.'Orchid'.DS.'Platform'.DS.'Config'.DS.ConfigurationInterface::FILE_BASE_CONFIG_PHP);
         @rmdir(getcwd().DS.'config');
     }
 }
