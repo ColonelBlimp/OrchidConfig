@@ -1,10 +1,8 @@
 {
 	"name" : "orchid/config",
 	"minimum-stability" : "dev",
-	"require" : {
-		"orchid/core" : "master"
-	},
 	"require-dev" : {
+		"orchid/core" : "master",
 		"phpunit/phpunit" : "~6.5.7@stable",
 		"php-coveralls/php-coveralls" : "~2.0.0@stable"
 	},
