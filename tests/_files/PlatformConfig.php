@@ -16,6 +16,10 @@ return [
         ConfigurationInterface::KEY_VALUE => 'false',
         ConfigurationInterface::KEY_COMMENT => ''
     ],
+    PlatformConfigurationInterface::KEY_ITEMS_PER_PAGE => [
+        ConfigurationInterface::KEY_VALUE => '3',
+        ConfigurationInterface::KEY_COMMENT => ''
+    ],
     PlatformConfigurationInterface::KEY_META_TAGS => [
         "google-site-verification" => [
             ConfigurationInterface::KEY_VALUE => '1234567890',

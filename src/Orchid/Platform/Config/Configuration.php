@@ -99,4 +99,22 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
     {
         return $this->getArrayValue(PlatformConfigurationInterface::KEY_SOCIAL_LINKS);
     }
+
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getAdminRoot()
+     */
+    public function getAdminRoot(): string
+    {
+        return $this->getStringValue(PlatformConfigurationInterface::KEY_ADMIN_CONTEXT, '/admin');
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getDescriptionLength()
+     */
+    public function getDescriptionLength(): int
+    {
+        return $this->getIntegerValue(PlatformConfigurationInterface::KEY_META_DESCRIPTION_LENGTH, 150);
+    }
 }

@@ -58,12 +58,13 @@ class ConfigTest extends TestCase
         $config = new Configuration($base, $platform);
         $this->assertSame('default', $config->getTheme());
         $this->assertSame('://', $config->getSiteUrl());
-        $this->assertTrue($config->getItemsPerPage() === 5);
+        $this->assertTrue($config->getItemsPerPage() === 3);
         $this->assertTrue($config->hasStaticFrontPage());
         $this->assertTrue($config->isBlogEnabled());
         $this->assertNotEmpty($config->getMetaTags());
         $this->assertEmpty($config->getSocialLinks());
-
+        $this->assertSame('/admin', $config->getAdminRoot());
+        $this->assertTrue($config->getDescriptionLength() === 150);
         $this->removePlatformConfiguration($platform);
         $this->removeBaseConfiguration($base);
     }

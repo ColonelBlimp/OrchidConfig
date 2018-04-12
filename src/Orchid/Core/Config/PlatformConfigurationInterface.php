@@ -50,6 +50,16 @@ interface PlatformConfigurationInterface
     public const KEY_SOCIAL_LINKS = 'social.links';
 
     /**
+     * The configuration key for the admin GUI's root context.
+     */
+    public const KEY_ADMIN_CONTEXT = 'admin.context';
+
+    /**
+     * THe configuration key for the maximum number of characters in the meta description tag.
+     */
+    public const KEY_META_DESCRIPTION_LENGTH = 'description.length';
+
+    /**
      * Retrieves the site url (site.url). If this is not configure, the method will try to work out the url
      * from the $_SERVER variable.
      * @return string
@@ -92,4 +102,16 @@ interface PlatformConfigurationInterface
      * @return array
      */
     public function getSocialLinks(): array;
+
+    /**
+     * Retrieves the root context for the administration GUI.
+     * @return string The default is <code>/admin</code>.
+     */
+    public function getAdminRoot(): string;
+
+    /**
+     * Retrieves the maximum length of the meta description tag.
+     * @return int Default is 150.
+     */
+    public function getDescriptionLength(): int;
 }
