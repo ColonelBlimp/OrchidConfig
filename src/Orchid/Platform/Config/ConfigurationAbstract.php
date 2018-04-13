@@ -21,8 +21,12 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
      * @param string $baseConfigFile
      * @throws ConfigurationException
      */
-    public function __construct(string $baseConfigFile)
+    public function __construct(string $baseConfigFile = null)
     {
+        if ($baseConfigFile === null) {
+            $baseConfigFile = __DIR__.Constants::DS.'BaseConfig.php';
+        }
+
         if (is_readable($baseConfigFile)) {
             $this->config = include $baseConfigFile;
         }

@@ -2,6 +2,7 @@
 
 namespace Orchid\Platform\Config;
 
+use Orchid\Core\Constants;
 use Orchid\Core\Config\PlatformConfigurationInterface;
 use Orchid\Core\Exception\ConfigurationException;
 
@@ -18,9 +19,13 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
      * @param string $platformConfigFile
      * @throws ConfigurationException
      */
-    public function __construct(string $baseConfigFile, string $platformConfigFile)
+    public function __construct(string $baseConfigFile = null, string $platformConfigFile = null)
     {
         parent::__construct($baseConfigFile);
+
+        if ($platformConfigFile === null) {
+            $platformConfigFile = $this->getConfigRoot().Constants::DS.'PlatformConfig.php';
+        }
 
         $config = [];
         if (is_readable($platformConfigFile)) {
