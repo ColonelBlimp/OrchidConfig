@@ -34,15 +34,6 @@ class ConfigTest extends TestCase
         }
     }
 
-    public function testLoadDefalutFiles()
-    {
-        $base = $this->loadBaseConfiguration();
-        $platform = $this->loadPlatformConfiguration();
-        $config = new Configuration();
-        $this->assertNotNull($config);
-        $this->removePlatformConfiguration($platform);
-        $this->removeBaseConfiguration($base);
-    }
     public function testBaseConfigLoad()
     {
         $base = $this->loadBaseConfiguration();
