@@ -8,9 +8,16 @@ use Orchid\Core\Exception\ConfigurationException;
 /**
  * @author Marc L. Veary
  * @namespace Orchid\Platform\Config
+ * @package Orchid
  */
 final class Configuration extends ConfigurationAbstract implements PlatformConfigurationInterface
 {
+    /**
+     * Constructor.
+     * @param string $baseConfigFile
+     * @param string $platformConfigFile
+     * @throws ConfigurationException
+     */
     public function __construct(string $baseConfigFile, string $platformConfigFile)
     {
         parent::__construct($baseConfigFile);
@@ -116,5 +123,14 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
     public function getDescriptionLength(): int
     {
         return $this->getIntegerValue(PlatformConfigurationInterface::KEY_META_DESCRIPTION_LENGTH, 150);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getLayoutFilename()
+     */
+    public function getLayoutFilename(): string
+    {
+        return $this->getStringValue(PlatformConfigurationInterface::KEY_LAYOUT_FILENAME, 'layout.html.php');
     }
 }

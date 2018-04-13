@@ -65,6 +65,7 @@ class ConfigTest extends TestCase
         $this->assertEmpty($config->getSocialLinks());
         $this->assertSame('/admin', $config->getAdminRoot());
         $this->assertTrue($config->getDescriptionLength() === 150);
+        $this->assertSame('layout.html.php', $config->getLayoutFilename());
         $this->removePlatformConfiguration($platform);
         $this->removeBaseConfiguration($base);
     }

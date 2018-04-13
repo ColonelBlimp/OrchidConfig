@@ -60,6 +60,11 @@ interface PlatformConfigurationInterface
     public const KEY_META_DESCRIPTION_LENGTH = 'description.length';
 
     /**
+     * The configuration key for the main layout filename.
+     */
+    public const KEY_LAYOUT_FILENAME = 'layout.filename';
+
+    /**
      * Retrieves the site url (site.url). If this is not configure, the method will try to work out the url
      * from the $_SERVER variable.
      * @return string
@@ -114,4 +119,9 @@ interface PlatformConfigurationInterface
      * @return int Default is 150.
      */
     public function getDescriptionLength(): int;
+
+    /**
+     * Retrieves the name of the main layout file.
+     */
+    public function getLayoutFilename(): string;
 }
