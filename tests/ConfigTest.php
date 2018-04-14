@@ -66,6 +66,10 @@ class ConfigTest extends TestCase
         $this->assertSame('/admin', $config->getAdminRoot());
         $this->assertTrue($config->getDescriptionLength() === 150);
         $this->assertSame('layout.html.php', $config->getLayoutFilename());
+        $this->assertSame('&copy; My copyright', $config->getSiteCopyright());
+        $this->assertSame('Site Description', $config->getSiteDescription());
+        $this->assertSame('Orchid', $config->getSiteTitle());
+
         $this->removePlatformConfiguration($platform);
         $this->removeBaseConfiguration($base);
     }

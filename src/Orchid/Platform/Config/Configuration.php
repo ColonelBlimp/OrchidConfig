@@ -133,4 +133,31 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
     {
         return $this->getStringValue(PlatformConfigurationInterface::KEY_LAYOUT_FILENAME, 'layout.html.php');
     }
+
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getSiteCopyright()
+     */
+    public function getSiteCopyright(): string
+    {
+        return $this->getStringValue(PlatformConfigurationInterface::KEY_SITE_COPYRIGHT, '&copy; My copyright');
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getSiteDescription()
+     */
+    public function getSiteDescription(): string
+    {
+        return $this->getStringValue(PlatformConfigurationInterface::KEY_SITE_DESCRIPTION, 'Site Description');
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getSiteTitle()
+     */
+    public function getSiteTitle(): string
+    {
+        return $this->getStringValue(PlatformConfigurationInterface::KEY_SITE_TITLE, 'Orchid');
+    }
 }

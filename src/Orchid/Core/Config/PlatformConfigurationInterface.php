@@ -25,6 +25,21 @@ interface PlatformConfigurationInterface
     public const KEY_SITE_THEME = 'site.theme';
 
     /**
+     * The configuration key for the site title.
+     */
+    public const KEY_SITE_TITLE = 'site.title';
+
+    /**
+     * The configuration key for the site description.
+     */
+    public const KEY_SITE_DESCRIPTION = 'site.description';
+
+    /**
+     * The configuration key for the site copyright.
+     */
+    public const KEY_SITE_COPYRIGHT = 'site.copyright';
+
+    /**
      * The configuration key for the maximum number of items per page.
      */
     public const KEY_ITEMS_PER_PAGE = 'items.perpage';
@@ -70,6 +85,24 @@ interface PlatformConfigurationInterface
      * @return string
      */
     public function getSiteUrl(): string;
+
+    /**
+     * Retrieves the site title.
+     * @return string
+     */
+    public function getSiteTitle(): string;
+
+    /**
+     * Retrieves the site description.
+     * @return string
+     */
+    public function getSiteDescription(): string;
+
+    /**
+     * Retrieves the site copyright.
+     * @return string
+     */
+    public function getSiteCopyright(): string;
 
     /**
      * Retrieves the theme to use (site.theme). This is the name of a directory under the directory name returned by
