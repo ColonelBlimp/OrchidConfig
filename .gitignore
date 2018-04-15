@@ -1,13 +1,6 @@
-<<<<<<< HEAD
-/.settings/
-/.buildpath
-/.project
-=======
-/.buildpath
-/.project
-/.settings
 /vendor/
-/composer.lock
-/build/
->>>>>>> branch 'master' of https://github.com/ColonelBlimp/OrchidConfig
+/.buildpath
+/.project
 /cache.properties
+/composer.lock
+/.settings/
