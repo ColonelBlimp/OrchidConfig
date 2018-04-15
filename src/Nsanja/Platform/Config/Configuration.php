@@ -1,9 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace Orchid\Platform\Config;
+namespace Nsanja\Platform\Config;
 
-use Orchid\Core\Config\PlatformConfigurationInterface;
-use Orchid\Core\Exception\ConfigurationException;
+use Nsanja\Core\Config\PlatformConfigurationInterface;
+use Nsanja\Core\Exception\ConfigurationException;
 
 /**
  * @author Marc L. Veary
@@ -38,7 +38,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getSiteUrl()
+     * @see \Nsanja\Core\Config\PlatformConfigurationInterface::getSiteUrl()
      */
     public function getSiteUrl(): string
     {
@@ -55,7 +55,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getTheme()
+     * @see \Nsanja\Core\Config\PlatformConfigurationInterface::getTheme()
      */
     public function getTheme(): string
     {
@@ -64,7 +64,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getItemsPerPage()
+     * @see \Nsanja\Core\Config\PlatformConfigurationInterface::getItemsPerPage()
      */
     public function getItemsPerPage(): int
     {
@@ -73,7 +73,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\PlatformConfigurationInterface::hasStaticFrontPage()
+     * @see \Nsanja\Core\Config\PlatformConfigurationInterface::hasStaticFrontPage()
      */
     public function hasStaticFrontPage(): bool
     {
@@ -82,7 +82,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\PlatformConfigurationInterface::isBlogEnabled()
+     * @see \Nsanja\Core\Config\PlatformConfigurationInterface::isBlogEnabled()
      */
     public function isBlogEnabled(): bool
     {
@@ -91,7 +91,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getMetaTags()
+     * @see \Nsanja\Core\Config\PlatformConfigurationInterface::getMetaTags()
      */
     public function getMetaTags(): array
     {
@@ -100,7 +100,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getSocialLinks()
+     * @see \Nsanja\Core\Config\PlatformConfigurationInterface::getSocialLinks()
      */
     public function getSocialLinks(): array
     {
@@ -109,7 +109,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getAdminRoot()
+     * @see \Nsanja\Core\Config\PlatformConfigurationInterface::getAdminRoot()
      */
     public function getAdminRoot(): string
     {
@@ -118,7 +118,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getDescriptionLength()
+     * @see \Nsanja\Core\Config\PlatformConfigurationInterface::getDescriptionLength()
      */
     public function getDescriptionLength(): int
     {
@@ -127,7 +127,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getLayoutFilename()
+     * @see \Nsanja\Core\Config\PlatformConfigurationInterface::getLayoutFilename()
      */
     public function getLayoutFilename(): string
     {
@@ -136,7 +136,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getSiteCopyright()
+     * @see \Nsanja\Core\Config\PlatformConfigurationInterface::getSiteCopyright()
      */
     public function getSiteCopyright(): string
     {
@@ -145,7 +145,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getSiteDescription()
+     * @see \Nsanja\Core\Config\PlatformConfigurationInterface::getSiteDescription()
      */
     public function getSiteDescription(): string
     {
@@ -154,7 +154,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\PlatformConfigurationInterface::getSiteTitle()
+     * @see \Nsanja\Core\Config\PlatformConfigurationInterface::getSiteTitle()
      */
     public function getSiteTitle(): string
     {

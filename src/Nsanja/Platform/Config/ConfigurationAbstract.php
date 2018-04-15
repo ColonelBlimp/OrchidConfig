@@ -1,16 +1,16 @@
 <?php declare(strict_types = 1);
 
-namespace Orchid\Platform\Config;
+namespace Nsanja\Platform\Config;
 
-use Orchid\Core\Constants;
-use Orchid\Core\Config\ConfigurationInterface;
-use Orchid\Core\Exception\ConfigurationException;
+use Nsanja\Core\Constants;
+use Nsanja\Core\Config\ConfigurationInterface;
+use Nsanja\Core\Exception\ConfigurationException;
 
 /**
  * This abstract class handles all the base platform configuration.
  * @author Marc L. Veary
- * @namespace Orchid\Platform\Config
- * @package Orchid
+ * @namespace Nsanja\Platform\Config
+ * @package Nsanja
  */
 abstract class ConfigurationAbstract implements ConfigurationInterface
 {
@@ -36,7 +36,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\ConfigurationInterface::getAppRoot()
+     * @see \Nsanja\Core\Config\ConfigurationInterface::getAppRoot()
      */
     public function getAppRoot(): string
     {
@@ -45,7 +45,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\ConfigurationInterface::getConfigRoot()
+     * @see \Nsanja\Core\Config\ConfigurationInterface::getConfigRoot()
      */
     public function getConfigRoot(): string
     {
@@ -54,7 +54,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\ConfigurationInterface::getContentRoot()
+     * @see \Nsanja\Core\Config\ConfigurationInterface::getContentRoot()
      */
     public function getContentRoot(): string
     {
@@ -63,7 +63,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\ConfigurationInterface::getCacheRoot()
+     * @see \Nsanja\Core\Config\ConfigurationInterface::getCacheRoot()
      */
     public function getCacheRoot(): string
     {
@@ -72,7 +72,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
 
     /**
      * {@inheritDoc}
-     * @see \Orchid\Core\Config\ConfigurationInterface::getThemesRoot()
+     * @see \Nsanja\Core\Config\ConfigurationInterface::getThemesRoot()
      */
     public function getThemesRoot(): string
     {

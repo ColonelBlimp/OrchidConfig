@@ -1,7 +1,7 @@
 <?php declare(strict_types = 1);
 
-use Orchid\Core\Config\ConfigurationInterface;
-use Orchid\Core\Config\PlatformConfigurationInterface;
+use Nsanja\Core\Config\ConfigurationInterface;
+use Nsanja\Core\Config\PlatformConfigurationInterface;
 
 return [
     PlatformConfigurationInterface::KEY_SITE_URL => [

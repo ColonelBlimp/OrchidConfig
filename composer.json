@@ -1,24 +1,24 @@
 {
-	"name" : "orchid/config",
-	"minimum-stability" : "dev",
+	"name" : "nsanja/config",
+	"minimum-stability" : "stable",
 	"require" : {
-		"php" : "~7.0"
+		"php" : "~7.0",
+		"nsanja/core" : "dev-master"
 	},
 	"require-dev" : {
-		"orchid/core" : "master",
-		"phpunit/phpunit" : "~6.5.7@stable",
-		"php-coveralls/php-coveralls" : "~2.0.0@stable"
-	},
-	"autoload" : {
-		"psr-4" : {
-			"Orchid\\" : "src/Orchid"
-		}
+		"phpunit/phpunit" : "~6.5.7",
+		"php-coveralls/php-coveralls" : "~2.0.0"
 	},
 	"type" : "library",
 	"license" : "MIT",
-	"repositories" : [{
-			"type" : "vcs",
-			"url" : "https://github.com/ColonelBlimp/OrchidCore"
+	"description" : "The configuration library for the Nsanja platform",
+	"authors" : [{
+			"name" : "ColonelBlimp"
 		}
-	]
+	],
+	"autoload" : {
+		"psr-4" : {
+			"Nsanja\\" : "src/Nsanja"
+		}
+	}
 }

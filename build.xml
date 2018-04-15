@@ -1,141 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="OrchidConfig" basedir="." default="build">
+<project name="OrchidCore" basedir="." default="build">
 
-	<property file="build.properties" />
-	<property name="build.dir" value="${basedir}/build" />
-	<property name="src.dir" value="${basedir}/${source}/Orchid" />
+    <property file="build.properties" />
+    <property name="build.dir" value="${basedir}/build" />
+    <property name="src.dir" value="${basedir}/${source}" />
 
-	<condition property="phpcs.exec" value="phpcs.bat" else="phpcs">
-		<os family="windows" />
-	</condition>
-	<condition property="phpmd.exec" value="phpmd.bat" else="phpmd">
-		<os family="windows" />
-	</condition>
-	<condition property="phpcpd.exec" value="phpcpd.bat" else="phpcpd">
-		<os family="windows" />
-	</condition>
-	<condition property="phploc.exec" value="phploc.bat" else="phploc">
-		<os family="windows" />
-	</condition>
-	<condition property="pdepend.exec" value="pdepend.bat" else="pdepend">
-		<os family="windows" />
-	</condition>
-	<condition property="phpunit.exec" value="phpunit.bat" else="phpunit">
-		<os family="windows" />
-	</condition>
-	<condition property="phpdox.exec" value="phpdox.bat" else="phpdox">
-		<os family="windows" />
-	</condition>
-	<condition property="phpcb.exec" value="phpcb.bat" else="phpcb">
-		<os family="windows" />
-	</condition>
-	<condition property="composer.exec" value="composer.bat" else="composer">
-		<os family="windows" />
-	</condition>
-	<condition property="phpdcd.exec" value="phpdcd.bat" else="phpdcd">
-		<os family="windows" />
-	</condition>
-	<condition property="main.target" value="local" else="ci">
-		<os family="windows" />
-	</condition>
-	<condition property="stdout" value="System.out" else="/dev/null">
-		<os family="windows" />
-	</condition>
+    <condition property="phpcs.exec" value="phpcs.bat" else="phpcs">
+        <os family="windows" />
+    </condition>
+    <condition property="phpmd.exec" value="phpmd.bat" else="phpmd">
+        <os family="windows" />
+    </condition>
+    <condition property="phpcpd.exec" value="phpcpd.bat" else="phpcpd">
+        <os family="windows" />
+    </condition>
+    <condition property="phploc.exec" value="phploc.bat" else="phploc">
+        <os family="windows" />
+    </condition>
+    <condition property="pdepend.exec" value="pdepend.bat" else="pdepend">
+        <os family="windows" />
+    </condition>
+    <condition property="phpunit.exec" value="phpunit.bat" else="phpunit">
+        <os family="windows" />
+    </condition>
+    <condition property="phpdox.exec" value="phpdox.bat" else="phpdox">
+        <os family="windows" />
+    </condition>
+    <condition property="phpcb.exec" value="phpcb.bat" else="phpcb">
+        <os family="windows" />
+    </condition>
+    <condition property="composer.exec" value="composer.bat" else="composer">
+        <os family="windows" />
+    </condition>
+    <condition property="phpdcd.exec" value="phpdcd.bat" else="phpdcd">
+        <os family="windows" />
+    </condition>
+    <condition property="main.target" value="local" else="ci">
+        <os family="windows" />
+    </condition>
+    <condition property="stdout" value="System.out" else="/dev/null">
+        <os family="windows" />
+    </condition>
 
-	<target name="build" depends="prepare">
-		<antcall target="${main.target}" />
-	</target>
+    <target name="build" depends="prepare, composer">
+        <antcall target="${main.target}" />
+    </target>
 
-	<target name="local" depends="php-lint, phpcs, phpmd, phpunit, phploc, phpdox, phpcb">
-		<delete file="${basedir}/System.out" />
-	</target>
+    <target name="local" depends="php-lint, phpcs, phpmd, phpunit, phploc, phpdox, phpcb">
+        <delete file="${basedir}/System.out" />
+    </target>
 
-	<target name="ci" depends="php-lint, prepare, composer, phpcs-ci, phpmd-ci, phpcpd, phploc, pdepend, phpunit, phpdox, phpcb">
-	</target>
+    <target name="ci" depends="php-lint, prepare, composer, phpcs-ci, phpmd-ci, phpcpd, phploc, pdepend, phpunit, phpdox, phpcb">
+    </target>
 
-	<target name="prepare">
-		<mkdir dir="${build.dir}/logs" />
-		<mkdir dir="${build.dir}/pdepend" />
-		<mkdir dir="${build.dir}/coverage" />
-		<mkdir dir="${build.dir}/api" />
-		<mkdir dir="${build.dir}/code-browser" />
-	</target>
+    <target name="prepare">
+        <mkdir dir="${build.dir}/logs" />
+        <mkdir dir="${build.dir}/pdepend" />
+        <mkdir dir="${build.dir}/coverage" />
+        <mkdir dir="${build.dir}/api" />
+        <mkdir dir="${build.dir}/code-browser" />
+    </target>
 
-	<target name="php-lint" description="Check for syntax errors">
-		<apply executable="php" failonerror="false">
-			<arg value="-l" />
-			<fileset dir="${src.dir}">
-			    <include name="**/*.php" />
-				<modified />
-			</fileset>
-		</apply>
-	</target>
+    <target name="php-lint" description="Check for syntax errors">
+        <apply executable="php" failonerror="false">
+            <arg value="-l" />
+            <fileset dir="${src.dir}">
+                <include name="**/*.php" />
+                <modified />
+            </fileset>
+        </apply>
+    </target>
 
-	<target name="phpcs" description="DEV: Check for PSR-2 coding standard voilations">
-		<exec executable="${phpcs.exec}">
-			<arg value="--report-checkstyle" />
-			<arg value="--report-file=${build.dir}/logs/checkstyle.xml" />
+    <target name="phpcs" description="DEV: Check for PSR-2 coding standard voilations">
+        <exec executable="${phpcs.exec}">
+            <arg value="--report-checkstyle" />
+            <arg value="--report-file=${build.dir}/logs/checkstyle.xml" />
             <arg value="--standard=${build.dir}/phpcs.xml" />
-			<arg path="${src.dir}" />
-		</exec>
-	</target>
+            <arg path="${src.dir}" />
+        </exec>
+    </target>
 
-	<target name="phpcs-ci" description="CI: Check for PSR-2 coding standard voilations">
-		<exec executable="${phpcs.exec}" output="${stdout}">
-			<arg value="--report-checkstyle" />
-			<arg value="--report-file=${build.dir}/logs/checkstyle.xml" />
+    <target name="phpcs-ci" description="CI: Check for PSR-2 coding standard voilations">
+        <exec executable="${phpcs.exec}" output="${stdout}">
+            <arg value="--report-checkstyle" />
+            <arg value="--report-file=${build.dir}/logs/checkstyle.xml" />
             <arg value="--standard=${build.dir}/phpcs.xml" />
-			<arg path="${src.dir}" />
-		</exec>
-	</target>
+            <arg path="${src.dir}" />
+        </exec>
+    </target>
 
-	<target name="phpmd" description="DEV: Perform project mess detection">
-		<exec executable="${phpmd.exec}">
-			<arg path="${src.dir}" />
-			<arg value="xml" />
+    <target name="phpmd" description="DEV: Perform project mess detection">
+        <exec executable="${phpmd.exec}">
+            <arg path="${src.dir}" />
+            <arg value="xml" />
             <arg value="${build.dir}/phpmd.xml" />
             <arg value="--reportfile" />
-			<arg value="${build.dir}/logs/phpmd.xml" />
-		</exec>
-	</target>
+            <arg value="${build.dir}/logs/phpmd.xml" />
+        </exec>
+    </target>
 
-	<target name="phpmd-ci" description="CI: Perform project mess detection">
-		<exec executable="${phpmd.exec}" output="${stdout}">
-			<arg path="${src.dir}" />
-			<arg value="xml" />
+    <target name="phpmd-ci" description="CI: Perform project mess detection">
+        <exec executable="${phpmd.exec}" output="${stdout}">
+            <arg path="${src.dir}" />
+            <arg value="xml" />
             <arg value="${build.dir}/phpmd.xml" />
             <arg value="--reportfile" />
-			<arg value="${build.dir}/logs/phpmd.xml" />
-		</exec>
-	</target>
+            <arg value="${build.dir}/logs/phpmd.xml" />
+        </exec>
+    </target>
 
-	<target name="phpcpd" description="Find code duplication">
-		<exec executable="${phpcpd.exec}" output="${stdout}">
+    <target name="phpcpd" description="Find code duplication">
+        <exec executable="${phpcpd.exec}" output="${stdout}">
             <arg value="--log-pmd" />
             <arg value="${build.dir}/logs/phpcpd.xml" />
             <arg path="${src.dir}" />
-		</exec>
-	</target>
+        </exec>
+    </target>
 
-	<target name="phploc" description="Sizing the project">
+    <target name="phploc" description="Sizing the project">
         <exec executable="${phploc.exec}" output="${stdout}">
            <arg value="--log-xml" />
            <arg value="${build.dir}/logs/phploc.xml" />
            <arg path="${src.dir}" />
         </exec>
-	</target>
+    </target>
 
-	<target name="pdepend" description="Software metrics">
-		<exec executable="${pdepend.exec}" output="${stdout}">
+    <target name="pdepend" description="Software metrics">
+        <exec executable="${pdepend.exec}" output="${stdout}">
             <arg value="--jdepend-xml=${build.dir}/logs/jdepend.xml" />
             <arg value="--jdepend-chart=${build.dir}/pdepend/dependencies.svg" />
             <arg value="--overview-pyramid=${build.dir}/pdepend/overview-pyramid.svg" />
             <arg path="${src.dir}" />
-		</exec>
-	</target>
+        </exec>
+    </target>
 
-	<target name="phpunit" description="Perform unit tests">
+    <target name="phpunit" description="Perform unit tests">
         <exec executable="${phpunit.exec}" failonerror="true">
             <arg value="-c" />
             <arg value="${basedir}/phpunit.xml.dist" />
@@ -148,16 +148,16 @@
             <arg value="--log-junit" />
             <arg value="${build.dir}/logs/junit.xml" />
         </exec>
-	</target>
+    </target>
 
-	<target name="phpdox" description="Code documentation">
+    <target name="phpdox" description="Code documentation">
         <exec executable="${phpdox.exec}" output="${stdout}">
             <arg value="-f" />
             <arg value="${build.dir}/phpdox.xml" />
         </exec>
-	</target>
+    </target>
 
-	<target name="phpcb" description="Aggregate all the documentation">
+    <target name="phpcb" description="Aggregate all the documentation">
         <exec executable="${phpcb.exec}">
             <arg value="--log" />
             <arg path="${build.dir}/logs" />
@@ -166,43 +166,28 @@
             <arg value="--output" />
             <arg path="${build.dir}/code-browser" />
         </exec>
-	</target>
+    </target>
 
-	<target name="phpdcd">
-		<exec executable="${phpdcd.exec}" description="DEV: Dead code detection">
-			<arg value="--names-exclude" />
-			<arg value="adminGetAction_*" />
-			<arg path="${src.dir}" />
-		</exec>
-	</target>
+    <target name="phpdcd">
+        <exec executable="${phpdcd.exec}" description="DEV: Dead code detection">
+            <arg value="--names-exclude" />
+            <arg value="adminGetAction_*" />
+            <arg path="${src.dir}" />
+        </exec>
+    </target>
 
-	<target name="composer" depends="composer-require, composer-update">
-	</target>
+    <target name="composer" if="composer-update">
+        <exec executable="${composer.exec}" dir="${basedir}" failonerror="true">
+            <arg value="update" />
+            <arg value="-o" />
+        </exec>
+    </target>
 
-	<target name="composer-check" description="Check for the composer.lock file">
-		<available file="${basedir}/composer.lock" property="run.composer" />
-	</target>
-
-	<target name="composer-require" depends="composer-check" unless="${run.composer}" description="Install dependencies">
-		<exec executable="${composer.exec}" dir="${basedir}" failonerror="true">
-			<arg value="require" />
-			<arg value="--prefer-dist" />
-			<arg value="-o" />
-		</exec>
-	</target>
-
-	<target name="composer-update" depends="composer-check" if="${run.composer}" description="Update dependencies">
-		<exec executable="${composer.exec}" dir="${basedir}" failonerror="true">
-			<arg value="update" />
-			<arg value="-o" />
-		</exec>
-	</target>
-
-	<target name="cs-fixer" description="DEV: Help fix as much coding to PSR-2 standard">
-		<exec executable="php-cs-fixer.bat">
-			<arg value="fix" />
-			<arg value="${src.dir}" />
-		</exec>
-	</target>
+    <target name="cs-fixer" description="DEV: Help fix as much coding to PSR-2 standard">
+        <exec executable="php-cs-fixer.bat">
+            <arg value="fix" />
+            <arg value="${src.dir}" />
+        </exec>
+    </target>
 
 </project>

@@ -1,9 +1,9 @@
 <?php declare(strict_types = 1);
 
-use Orchid\Core\Config\ConfigurationInterface;
-use Orchid\Core\Config\PlatformConfigurationInterface;
-use Orchid\Core\Exception\ConfigurationException;
-use Orchid\Platform\Config\Configuration;
+use Nsanja\Core\Config\ConfigurationInterface;
+use Nsanja\Core\Config\PlatformConfigurationInterface;
+use Nsanja\Core\Exception\ConfigurationException;
+use Nsanja\Platform\Config\Configuration;
 use PHPUnit\Framework\TestCase;
 
 define('DS', DIRECTORY_SEPARATOR);
@@ -11,7 +11,7 @@ define('DS', DIRECTORY_SEPARATOR);
 class ConfigTest extends TestCase
 {
     /**
-     * @expectedException Orchid\Core\Exception\ConfigurationException
+     * @expectedException Nsanja\Core\Exception\ConfigurationException
      * @expectedExceptionMessage A base configuration file was not able to be loaded, or was empty:
      */
     public function testBaseConfigurationExceptionNoFiles()
@@ -20,7 +20,7 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @expectedException Orchid\Core\Exception\ConfigurationException
+     * @expectedException Nsanja\Core\Exception\ConfigurationException
      * @expectedExceptionMessage A platform configuration file was not able to be loaded, or was empty:
      */
     public function testPlatformConfigurationExceptionNoFiles()
@@ -77,7 +77,7 @@ class ConfigTest extends TestCase
     private function loadBaseConfiguration(string $filename = ConfigurationInterface::FILE_BASE_CONFIG_PHP): string
     {
         $src = __DIR__.DS.'_files'.DS.$filename;
-        $dest = getcwd().DS.'src'.DS.'Orchid'.DS.'Platform'.DS.'Config'.DS.$filename;
+        $dest = getcwd().DS.'src'.DS.'Nsanja'.DS.'Platform'.DS.'Config'.DS.$filename;
         copy($src, $dest);
         return $dest;
     }
@@ -86,7 +86,7 @@ class ConfigTest extends TestCase
     {
         $src = __DIR__.DS.'_files'.DS.$filename;
         $dest = getcwd().DS.'config';
-        mkdir($dest, 0777, true);
+        @mkdir($dest, 0777, true);
         $dest .= DS.$filename;
         copy($src, $dest);
         return $dest;
@@ -106,7 +106,7 @@ class ConfigTest extends TestCase
     public static function tearDownAfterClass()
     {
         @unlink(getcwd().DS.'config'.DS.PlatformConfigurationInterface::FILE_PLATFORM_CONFIG_PHP);
-        @unlink(getcwd().DS.'src'.DS.'Orchid'.DS.'Platform'.DS.'Config'.DS.ConfigurationInterface::FILE_BASE_CONFIG_PHP);
+        @unlink(getcwd().DS.'src'.DS.'Nsanja'.DS.'Platform'.DS.'Config'.DS.ConfigurationInterface::FILE_BASE_CONFIG_PHP);
         @rmdir(getcwd().DS.'config');
     }
 }

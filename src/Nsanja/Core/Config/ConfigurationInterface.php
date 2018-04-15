@@ -1,11 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace Orchid\Core\Config;
+namespace Nsanja\Core\Config;
 
 /**
  * The platform's core configuration interface.
  * @author Marc L. Veary
- * @namespace Orchid\Core\Config
+ * @namespace Nsanja\Core\Config
+ * @package Nsanja
  */
 interface ConfigurationInterface
 {

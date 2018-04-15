@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-use Orchid\Core\Config\ConfigurationInterface;
+use Nsanja\Core\Config\ConfigurationInterface;
 
 return [
     ConfigurationInterface::KEY_APP_ROOT => '.',

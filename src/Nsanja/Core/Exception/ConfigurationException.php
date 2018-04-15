@@ -1,11 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace Orchid\Core\Exception;
+namespace Nsanja\Core\Exception;
 
 /**
  * @author Marc L. Veary
- * @namespace Orchid\Core\Exception
- * @package Orchid
+ * @namespace Nsanja\Core\Exception
+ * @package Nsanja
  */
 final class ConfigurationException extends \Exception
 {
