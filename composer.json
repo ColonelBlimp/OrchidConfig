@@ -1,6 +1,9 @@
 {
 	"name" : "orchid/config",
 	"minimum-stability" : "dev",
+	"require" : {
+		"php" : "~7.0"
+	},
 	"require-dev" : {
 		"orchid/core" : "master",
 		"phpunit/phpunit" : "~6.5.7@stable",
