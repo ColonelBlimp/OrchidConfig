@@ -2,7 +2,7 @@
 	"name" : "nsanja/config",
 	"minimum-stability" : "stable",
 	"require" : {
-		"php" : "~7.0",
+		"php" : "~7.2",
 		"nsanja/core" : "dev-master"
 	},
 	"require-dev" : {
