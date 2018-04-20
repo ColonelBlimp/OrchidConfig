@@ -5,6 +5,7 @@ use Nsanja\Core\Config\PlatformConfigurationInterface;
 use Nsanja\Core\Exception\ConfigurationException;
 use Nsanja\Platform\Config\Configuration;
 use PHPUnit\Framework\TestCase;
+use Nsanja\Core\Traits\ConfigAwareTrait;
 
 define('DS', DIRECTORY_SEPARATOR);
 
@@ -74,6 +75,20 @@ class ConfigTest extends TestCase
         $this->removeBaseConfiguration($base);
     }
 
+    public function testConfigAware()
+    {
+        $base = $this->loadBaseConfiguration();
+        $platform = $this->loadPlatformConfiguration();
+
+        $config = new Configuration($base, $platform);
+        $class = new ConfigAware();
+        $class->setConfig($config);
+        $this->assertNotNull($class);
+
+        $this->removePlatformConfiguration($platform);
+        $this->removeBaseConfiguration($base);
+    }
+
     private function loadBaseConfiguration(string $filename = ConfigurationInterface::FILE_BASE_CONFIG_PHP): string
     {
         $src = __DIR__.DS.'_files'.DS.$filename;
@@ -109,4 +124,9 @@ class ConfigTest extends TestCase
         @unlink(getcwd().DS.'src'.DS.'Nsanja'.DS.'Platform'.DS.'Config'.DS.ConfigurationInterface::FILE_BASE_CONFIG_PHP);
         @rmdir(getcwd().DS.'config');
     }
+}
+
+class ConfigAware
+{
+    use ConfigAwareTrait;
 }
