@@ -23,7 +23,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
         parent::__construct($baseConfigFile);
 
         $config = [];
-        if (is_readable($platformConfigFile)) {
+        if (\is_readable($platformConfigFile)) {
             $config = include $platformConfigFile;
         }
 
@@ -33,7 +33,7 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
             );
         }
 
-        $this->config = array_merge($this->config, $config);
+        $this->config = \array_merge($this->config, $config);
     }
 
     /**
@@ -45,8 +45,8 @@ final class Configuration extends ConfigurationAbstract implements PlatformConfi
         $url = $this->getStringValue(PlatformConfigurationInterface::KEY_SITE_URL);
 
         if (empty($url)) {
-            $scheme = filter_input(INPUT_SERVER, 'REQUEST_SCHEME');
-            $server = filter_input(INPUT_SERVER, 'SERVER_NAME');
+            $scheme = \filter_input(INPUT_SERVER, 'REQUEST_SCHEME');
+            $server = \filter_input(INPUT_SERVER, 'SERVER_NAME');
             $url = $scheme.'://'.$server;
         }
 

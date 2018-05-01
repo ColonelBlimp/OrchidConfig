@@ -23,7 +23,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
      */
     public function __construct(string $baseConfigFile)
     {
-        if (is_readable($baseConfigFile)) {
+        if (\is_readable($baseConfigFile)) {
             $this->config = include $baseConfigFile;
         }
 
@@ -40,7 +40,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
      */
     public function getAppRoot(): string
     {
-        return realpath($this->config[ConfigurationInterface::KEY_APP_ROOT]);
+        return \realpath($this->config[ConfigurationInterface::KEY_APP_ROOT]);
     }
 
     /**
@@ -105,7 +105,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
     final protected function getArrayValue(string $key): array
     {
         $value = $this->getConfigValue($key);
-        if (!$value || !is_array($value)) {
+        if (!$value || !\is_array($value)) {
             return [];
         }
 
@@ -157,7 +157,7 @@ abstract class ConfigurationAbstract implements ConfigurationInterface
             return $default;
         }
 
-        return boolval($value);
+        return \boolval($value);
     }
 
     /**

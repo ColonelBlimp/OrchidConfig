@@ -10,73 +10,73 @@ namespace Nsanja\Core\Config;
 interface PlatformConfigurationInterface
 {
     /**
-     * The filename for the default platform configuration file (PlatformConfig.php). The default location for this
-     * file is in the [app_root]/config directory.
+     * @var string The filename for the default platform configuration file (PlatformConfig.php).
+     *             The default location for this file is in the [app_root]/config directory.
      */
     public const FILE_PLATFORM_CONFIG_PHP = 'PlatformConfig.php';
 
     /**
-     * The configuration key for the site url [protocol][FQDN]
+     * @var string The configuration key for the site url [protocol][FQDN]
      */
     public const KEY_SITE_URL = 'site.url';
 
     /**
-     * The configuration key for the theme the site is currently using.
+     * @var string The configuration key for the theme the site is currently using.
      */
     public const KEY_SITE_THEME = 'site.theme';
 
     /**
-     * The configuration key for the site title.
+     * @var string The configuration key for the site title.
      */
     public const KEY_SITE_TITLE = 'site.title';
 
     /**
-     * The configuration key for the site description.
+     * @var string The configuration key for the site description.
      */
     public const KEY_SITE_DESCRIPTION = 'site.description';
 
     /**
-     * The configuration key for the site copyright.
+     * @var string The configuration key for the site copyright.
      */
     public const KEY_SITE_COPYRIGHT = 'site.copyright';
 
     /**
-     * The configuration key for the maximum number of items per page.
+     * @var string The configuration key for the maximum number of items per page.
      */
     public const KEY_ITEMS_PER_PAGE = 'items.perpage';
 
     /**
-     * The configuration key for enabling a static front page.
+     * @var string The configuration key for enabling a static front page.
      */
     public const KEY_STATIC_FRONTPAGE = 'static.frontpage';
 
     /**
-     * The configuration key for enabling/disabling the /blog URI
+     * @var string The configuration key for enabling/disabling the /blog URI
      */
     public const KEY_BLOG_ENABLED = 'blog.enabled';
 
     /**
-     * The configuration key for the HTML meta tags.
+     * @var string The configuration key for the HTML meta tags.
      */
     public const KEY_META_TAGS = 'meta.tags';
 
     /**
-     * The configuration key for social links.
+     * @var string The configuration key for social links.
      */
     public const KEY_SOCIAL_LINKS = 'social.links';
 
     /**
-     * The configuration key for the admin GUI's root context.
+     * @var string The configuration key for the admin GUI's root context.
      */
     public const KEY_ADMIN_CONTEXT = 'admin.context';
 
     /**
-     * THe configuration key for the maximum number of characters in the meta description tag.
+     * @var string THe configuration key for the maximum number of characters in the meta description tag.
      */
     public const KEY_META_DESCRIPTION_LENGTH = 'description.length';
 
     /**
-     * The configuration key for the main layout filename.
+     * @var string The configuration key for the main layout filename.
      */
     public const KEY_LAYOUT_FILENAME = 'layout.filename';
 

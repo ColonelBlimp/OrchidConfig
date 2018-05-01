@@ -11,43 +11,44 @@ namespace Nsanja\Core\Config;
 interface ConfigurationInterface
 {
     /**
-     * The configuration key for the platform's root directory.
+     * @var string The configuration key for the platform's root directory.
      */
     public const KEY_APP_ROOT = 'appRoot';
 
     /**
-     * The configuration key for the platform's config directory.
+     * @var string The configuration key for the platform's config directory.
      */
     public const KEY_CONFIG_ROOT = 'configRoot';
 
     /**
-     * The configuration key for the platform's content directory.
+     * @var string The configuration key for the platform's content directory.
      */
     public const KEY_CONTENT_ROOT = 'contentRoot';
 
     /**
-     * The configuration key for the platform's cache directory.
+     * @var string The configuration key for the platform's cache directory.
      */
     public const KEY_CACHE_ROOT = 'cacheRoot';
 
     /**
-     * The configuration key for the platform's themes directory.
+     * @var string The configuration key for the platform's themes directory.
      */
     public const KEY_THEMES_ROOT = 'themesRoot';
 
     /**
-     * The configuration key for the
+     * @var string The configuration key for the
      */
     public const KEY_VALUE = 'value';
 
     /**
-     * The configuration key for the
+     * @var string The configuration key for the
      */
     public const KEY_COMMENT = 'comment';
 
     /**
-     * The filename for the default base platform configuration file (BaseConfig.php). The default location for this
-     * file is in the same directory as the Configuration implementation classfile.
+     * @var string The filename for the default base platform configuration file (BaseConfig.php).
+     *             The default location for this file is in the same directory as the Configuration implementation
+     *             classfile.
      */
     public const FILE_BASE_CONFIG_PHP = 'BaseConfig.php';
 
